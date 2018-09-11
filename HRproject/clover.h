@@ -90,7 +90,7 @@ private:
 	size_t hr_mean;
 	size_t hr_rest;
 	size_t hr_sd;
-	struct index* hr_index;
+	index* hr_index;
 	fatigue f;
 	pressure p;
 	isScoop s;
