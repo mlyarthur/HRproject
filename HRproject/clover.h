@@ -13,11 +13,40 @@
 #include "predefine.h"
 using namespace std;
 
+extern size_t minval_;
+extern size_t gap_;
+extern size_t bins_;
+
 AFX_EX_CLASS typedef list<pair< vector<int>, int>> LISTHR;
 AFX_EX_CLASS typedef list<pair< vector<int>, vector<int>>> LISTHP;
 AFX_EX_CLASS vector<int> getTime();
 AFX_EX_CLASS void addTime(vector<int>& time, int interval);
 AFX_EX_CLASS void test();
+
+
+extern LISTHR& operator+(const LISTHR & a);
+
+
+
+
+LISTHR addList(LISTHR a, LISTHR b);
+
+
+
+class DataProcess
+{
+	public:
+		DataProcess() {};
+		DataProcess(LISTHR& tmp) :data(tmp) {};
+		DataProcess operator+(const DataProcess&b) 
+		{
+			DataProcess d;
+			d.data=addList(b.data,this->data);
+			return d;
+		};
+	private:
+		LISTHR data;
+};
 
 
 class Histogram
@@ -95,6 +124,23 @@ private:
 	pressure p;
 	isScoop s;
 	std::string diff;
+//ָ�귶Χ
+public:
+	vector<int> range_diff;
+	vector<int> range_fi;
+	vector<int> range_fi_b;
+	vector<int> range_pi;
+	vector<int> range_pi_b;
+	vector<int> range_si;
+
+
+	int hr_diff;
+	int hr_fi;
+	int hr_fi_b;
+	int hr_pi;
+	int hr_pi_b;
+	int hr_si;
+	int hp;
 public:
 	HRindex();
 	~HRindex();
@@ -118,3 +164,4 @@ class HPindex
 
 
 };
+

@@ -7,9 +7,7 @@
 
 extern double start_time;
 extern double end_time;
-extern size_t minval_ =0;
-extern size_t gap_ =20;
-extern size_t bins_=8;
+
 
 enum period { day, night, allday, rest };
 enum fatigue { fmild = 1, fsevere = 2 };
