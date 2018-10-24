@@ -16,6 +16,8 @@ using namespace std;
 extern size_t minval_;
 extern size_t gap_;
 extern size_t bins_;
+extern size_t age;
+extern size_t stalls;
 
 AFX_EX_CLASS typedef list<pair< vector<int>, int>> LISTHR;
 AFX_EX_CLASS typedef list<pair< vector<int>, vector<int>>> LISTHP;
@@ -38,7 +40,7 @@ class DataProcess
 	public:
 		DataProcess() {};
 		DataProcess(LISTHR& tmp) :data(tmp) {};
-		DataProcess operator+(const DataProcess&b) 
+		DataProcess operator+(const DataProcess& b) 
 		{
 			DataProcess d;
 			d.data=addList(b.data,this->data);
@@ -84,6 +86,13 @@ struct index
 
 };
 
+struct input
+{
+	vector<int>start_time;
+	int interval;
+	bool flag;  
+	s_type st;
+};
 
 class AFX_EX_CLASS sample
 {
@@ -95,6 +104,7 @@ public:
 
 public:
 	void downsample(vector<int>start_time, int interval, bool flag, s_type st);
+	void sample_all(vector<input> sample_input);
 	//map<double, size_t >r_data;//store the realtime data
 	//map<double, size_t >d_data;//store the day time data 
 	//map<double, size_t >n_data;//store the night time data
@@ -103,7 +113,7 @@ public:
 public:
 	LISTHR tmp_out;
 	LISTHP tmp_hp;
-
+	LISTHR sample_rlt;
 
 };
 
@@ -133,13 +143,14 @@ public:
 	vector<int> range_pi_b;
 	vector<int> range_si;
 
-
+	//档位
+	int hr_risk;
 	int hr_diff;
 	int hr_fi;
 	int hr_fi_b;
 	int hr_pi;
 	int hr_pi_b;
-	int hr_si;
+	int hr_si;//1-5的等级划分
 	int hp;
 public:
 	HRindex();
@@ -154,7 +165,7 @@ public:
 	string HR_PI(LISTHR d);//普通压力指数
 	string HR_PI_B(LISTHR d);//蓝牙压力指数
 	string HR_SI(LISTHR d);//稳定指数
-	string HP(LISTHP d);//血压(暂无)
+	string HP(LISTHP d,LISTHR h,bool hr2hp);//血压(暂无)
 	void HRMonitor(LISTHR d, period p);//分析函数
 
 };
